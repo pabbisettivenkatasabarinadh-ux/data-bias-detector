@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import pymupdf as fitz
 import plotly.express as px
+import re 
+from collections import Counter
 st.set_page_config(page_title="fairhire-bias free hiring",layout="wide")
 st.title("fairhire-real world bias solver")
 st.write("talent is important just show bias output must be fair chance")
@@ -27,10 +29,10 @@ with tab1:
         with col2:
             st.subheader("gender bias")
             st.error(f"male {gender_bias.get('male',0):.0f}% vs female {gender_bias.get('female',0):.0f}% - girls low!")
-            st.success("it will be equal to blind hirng!")
-            st.bar_chart(gender_bias)
-            for g,p in gender_bias.items():st.metric(f"{g}",f"{p:.0f}% shortlisted")
-
+            st.write("---")
+            st.subheader("detailed count(counter)")
+            gender_count=Counter(df['gender'].str.lower())
+            st.write(gender_count)
         #gender bias verdict
         if abs(gender_bias.get('male',0)-gender_bias.get('female')) >15:
             st.error(f"gender bias also include here! male{gender_bias.get('male',0):.0f}% vs female{gender_bias.get('female',0):.0f}% -company -hiring girls is low to the job")
@@ -49,7 +51,10 @@ with tab1:
     else:
         df=pd.read_csv("resume.csv")
 with tab2:
-    st.header(" Company + Branch + Gender Bias - 2 Side View!")
+    st.header("tab:2 company matcher+resume  coach (new v3.0)")
+    st.write("upload resume pdf - bias words check + count skills and verify")
+
+    upload_pdf=st.file_uploader("upload resume pdf",type=["pdf"])
 
     c1, c2, c3, c4 = st.columns(4)
     with c1:
@@ -113,15 +118,33 @@ with tab2:
             except:
                 text=""
         if text:
+            emails=re.findall(r"\S+@\S+\.\S+",text)
             found = [s for s in req_list if s in text.lower()]
-            missing = [s for s in req_list if s not in text.lower()]
-            base = len(found)/len(req_list)*80 + (15 if "project" in text.lower() else 0)
-            final_chance = max(0, min(100, int(base - (bias*0.5 if gender=="Female" else 0))))
+            missing=[s for s in req_list if s not in text.lower()]
+            base=len(found)/len(req_list)*80 + (15 if "project" in text.lower() else 0)
+            final_chance=max(0,min(100,int(base - (bias*0.5 if gender=="female" else 0))))
+            skill_count=Counter(found)
 
-            st.metric(f"🎯 Final Chance - with bias", f"{final_chance}%", delta=f"+{int(bias*0.5)}% Without Bias")
+            st.write(f"found emails:{emails}")
+            st.write(f"skill count:{skill_count}")
+            st.bar_chart(skill_count)
+
+            st.metric(f" Final Chance - with bias", f"{final_chance}%", delta=f"+{int(bias*0.5)}% Without Bias" if gender=="female" else "advantage")
             st.progress(final_chance)
             st.write(f" already kown skills: {found} | missing skilkls: {missing}")
 
             st.subheader(" how to escape genderbias at interview")
             if gender=="Female":
                 st.write("1. Blind Resume - Gender Hide 2. Skills Top Lo 3. take referral - Chance will increase 40%")
+st.divider()
+st.subheader("feedback/commentbox")
+st.write("give your valuable suggestion - bias free hiring purpose!")
+
+comment=st.text_area("leave your comment:",placeholder="your ideas?")
+
+if st.button("submit comment"):
+    if comment:
+        st.success(f"thanks bro ! your comment saved:{comment}")
+        st.balloons()
+    else:
+        st.warning("comment empty!")
