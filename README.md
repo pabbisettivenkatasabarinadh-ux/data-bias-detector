@@ -3,6 +3,7 @@
 *Tagline:* Talent is important, just show bias output must be fair chance
 
 A real-world AI bias detector that solves actual hiring bias using data.
+live link  data-bias-detector ∙ main ∙ app.py
 
 ###  Features v3.0
 
