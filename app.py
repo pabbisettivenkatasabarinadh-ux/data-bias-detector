@@ -80,7 +80,7 @@ with tab2:
     req_list = [s.strip().lower() for s in req_str.split(',')]
     st.success(f" {branch} | {role} | {world_company} | Skills: {req_str}")
 
-    # 2. SKILL DICT TARVAATA - NENU ICHINA 2 SIDE CODE - IKKADA ADD CHEYALI - START
+    
     st.subheader(" Gender Bias - 1 Side Bias % | another Side Select Chance")
     left, right = st.columns(2)
     with left:
