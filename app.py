@@ -23,7 +23,7 @@ with tab1:
         col1,col2=st.columns(2)
         with col1:
             st.subheader("tier bias")
-            st.info("tier3 0%=you are talented but you reject because your clg tier level ")
+            st.info("tier3 0%=you are talented but you reject because the clg tier ranking of your is low")
             st.bar_chart(tier_bias)
             for t,p in tier_bias.items():st.metric(f"{t}",f"{p:.0f}%shortlisted")
         with col2:
