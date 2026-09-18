@@ -69,7 +69,6 @@ with tab2:
     with c4:
         gender = st.selectbox(" Gender", ["Male", "Female", "Prefer not to say"], key="gg3")
 
-    # 1. SKILL DICT - Ikkada
     role_skills = {
         "Software Engineer": "Python, DSA, OOPS, DBMS, System Design",
         "Data Scientist": "Python, SQL, Machine Learning, Statistics",
