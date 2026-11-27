@@ -6,7 +6,7 @@ import re
 from collections import Counter
 st.set_page_config(page_title="fairhire-bias free hiring",layout="wide")
 st.title("fairhire-real world bias solver")
-st.write("talent is important just show bias output must be fair chance")
+st.write("talent is important")
 
 tab1, tab2 = st.tabs(["tab1:student data bias auditor(old data)","tab2:company matcher + resume coach new idea)"])
 #tab:1- old data- gender-+tier bias
