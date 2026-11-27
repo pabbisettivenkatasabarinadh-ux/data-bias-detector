@@ -23,7 +23,7 @@ with tab1:
         col1,col2=st.columns(2)
         with col1:
             st.subheader("tier bias")
-            st.info("tier3 0%=you are talented but you reject because the clg tier ranking of your is low")
+            st.info("tier3 0%=you are talented but you reject because the clg tier ranking is low")
             st.bar_chart(tier_bias)
             for t,p in tier_bias.items():st.metric(f"{t}",f"{p:.0f}%shortlisted")
         with col2:
@@ -104,7 +104,7 @@ with tab2:
             st.success("Advantage ")
     # 2 SIDE CODE END
 
-    # 3. TARVAATA - PDF UPLOAD
+    # 3.pdf-upload 
     uploaded = st.file_uploader(f" {branch} - Resume PDF", type=['pdf','txt'], key="pdf3")
     if uploaded:
         text = ""
@@ -134,7 +134,7 @@ with tab2:
 
             st.subheader(" how to escape genderbias at interview")
             if gender=="Female":
-                st.write("1. Blind Resume - Gender Hide 2. Skills Top Lo 3. take referral - Chance will increase 40%")
+                st.write("1. Blind Resume - Gender Hide 2. Skills  3. take referral -it increase your chance of selection")
 st.divider()
 st.subheader("feedback/commentbox")
 st.write("give your valuable suggestion - bias free hiring purpose!")
